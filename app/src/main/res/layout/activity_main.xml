@@ -24,7 +24,7 @@
         android:id="@+id/btn_github"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:text="GitHub Profilini Görüntüle"
+        android:text="View GitHub Profile"
         android:textColor="#FFFFFF"
         android:backgroundTint="#3A5CFF"
         android:layout_marginBottom="16dp" />
