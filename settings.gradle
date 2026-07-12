@@ -1,0 +1,2 @@
+rootProject.name = "LinuxMaster2"
+include ':app'
