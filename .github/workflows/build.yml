@@ -9,14 +9,13 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Install Gradle 8.6
-        run: |
-          wget -q https://services.gradle.org/distributions/gradle-8.6-bin.zip -O gradle.zip
-          unzip -q gradle.zip
-          echo "$PWD/gradle-8.6/bin" >> $GITHUB_PATH
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
       - name: Build APK
-        run: gradle assembleDebug
+        run: |
+          cd $GITHUB_WORKSPACE
+          gradle assembleDebug --no-daemon
       - uses: actions/upload-artifact@v4
         with:
           name: finn-dev
-          path: app/build/outputs/apk/debug/*.apk
+          path: "**/*.apk"
