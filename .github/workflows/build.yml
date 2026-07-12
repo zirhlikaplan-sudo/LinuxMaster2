@@ -5,20 +5,12 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Build APK with Buildozer
+        uses: ArtemSBulgakov/buildozer-action@v1
         with:
-          python-version: '3.10'
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y zip unzip openjdk-17-jdk python3-pip \
-            build-essential libssl-dev libffi-dev autoconf libtool
-          pip install buildozer cython
-      - name: Accept Android licenses
-        run: |
-          mkdir -p $HOME/.android
-          touch $HOME/.android/repositories.cfg
-          yes | buildozer android debug 2>&1 | head -5 || true
-          find $HOME/.buildozer -name "licenses" -type d | xargs -I{} sh -c 'yes | ls {}'
-      - name: Build APK
-        run:
+          command: buildozer android debug
+          buildozer_version: stable
+      - uses: actions/upload-artifact@v4
+        with:
+          name: finn-dev
+          path: bin/*.apk
